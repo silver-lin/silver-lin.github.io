@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>PySpark笔记01 | jea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="RDDRDD，弹性分布式数据集，为Apache Spark的核心。基于某种关键字，数据集被分块，并且分发到执行器节点，使得数据集能够高速执行运算。">
+<meta name="keywords" content="pyspark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PySpark笔记01">
+<meta property="og:url" content="http://yoursite.com/2018/04/22/PySpark笔记01/index.html">
+<meta property="og:site_name" content="jea">
+<meta property="og:description" content="RDDRDD，弹性分布式数据集，为Apache Spark的核心。基于某种关键字，数据集被分块，并且分发到执行器节点，使得数据集能够高速执行运算。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-27T11:35:36.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PySpark笔记01">
+<meta name="twitter:description" content="RDDRDD，弹性分布式数据集，为Apache Spark的核心。基于某种关键字，数据集被分块，并且分发到执行器节点，使得数据集能够高速执行运算。">
+  
+    <link rel="alternative" href="/atom.xml" title="jea" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/cat1.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Jea</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">该折腾就折腾</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/tags/pyspark/" style="font-size: 20px;">pyspark</a> <a href="/tags/pythonPro/" style="font-size: 15px;">pythonPro</a> <a href="/tags/sql/" style="font-size: 20px;">sql</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/数据挖掘算法/" style="font-size: 15px;">数据挖掘算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">路要一步一步走。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Jea</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="/img/cat1.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Jea</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">该折腾就折腾</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-PySpark笔记01" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/04/22/PySpark笔记01/" class="article-date">
+  	<time datetime="2018-04-22T07:13:03.000Z" itemprop="datePublished">2018-04-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PySpark笔记01
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pyspark/">pyspark</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="RDD"><a href="#RDD" class="headerlink" title="RDD"></a>RDD</h3><p>RDD，弹性分布式数据集，为Apache Spark的核心。基于某种关键字，数据集被分块，并且分发到执行器节点，使得数据集能够高速执行运算。<br><a id="more"></a></p>
+<h3 id="创建RDD"><a href="#创建RDD" class="headerlink" title="创建RDD"></a>创建RDD</h3><p>PySpark中，两种方式可以创建RDD。<br><strong>1.用.parallelize()集合（元素list或array）</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkContext</span><br><span class="line">sc = SparkContext()</span><br><span class="line">data = sc.parallelize(</span><br><span class="line">    [(<span class="string">'Amber'</span>,<span class="number">22</span>),(<span class="string">'Alfred'</span>,<span class="number">23</span>),(<span class="string">'Skye'</span>,<span class="number">4</span>),(<span class="string">'Albert'</span>,<span class="number">12</span>),(<span class="string">'Amber'</span>,<span class="number">9</span>)]</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.引用本地或外部的某个文件</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_file = sc.textFile(filename,n)</span><br></pre></td></tr></table></figure></p>
+<p>filename是文件名，n是数据集被划分的分区个数。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><strong>1.表示</strong></p>
+<ul>
+<li>.collect()<br>使用.parallelize()方法对一个集合进行操作时的对象为ParallelCollectionRDD，使用.collect()把RDD的所有元素返回给驱动程序，然后序列化为一个列表。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = sc.parallelize([</span><br><span class="line">    (<span class="string">'Ferrari'</span>,<span class="string">'fast'</span>),&#123;<span class="string">'Porsche'</span>:<span class="string">'100000'</span>&#125;,[<span class="string">'Spain'</span>,<span class="string">'visited'</span>,<span class="number">4504</span>]</span><br><span class="line">])</span><br><span class="line">data_col = data.collect()</span><br><span class="line">print(data_col)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[(&apos;Ferrari&apos;, &apos;fast&apos;), &#123;&apos;Porsche&apos;: &apos;100000&apos;&#125;, [&apos;Spain&apos;, &apos;visited&apos;, 4504]]</span><br></pre></td></tr></table></figure></p>
+<p>由此可见，Spark支持tuple、dict、list。</p>
+<ul>
+<li>.take()<br>data_file.take(num)<br>读取文本，文本的每一行为RDD的一个元素。num为输出的数据数目。</li>
+</ul>
+<p><strong>2.转换</strong></p>
+<ul>
+<li>.map()<br>.map()作用在每个RDD元素上。(对于读取文件得到的数据，.map()是对每一行的转换。）<br>例如，将字符串转为数值类型<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = sc.parallelize([</span><br><span class="line">    <span class="string">'2000'</span>,<span class="string">'2001'</span>,<span class="string">'2002'</span></span><br><span class="line">])</span><br><span class="line">data_int = data.map(<span class="keyword">lambda</span> x:int(x))</span><br><span class="line">print(data_int.collect())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[2000, 2001, 2002]</span><br></pre></td></tr></table></figure></p>
+<p>注意：使用lambda时，必须每一行或者每一个元素是同一种类型。（list、tuple、dict）</p>
+<ul>
+<li>.filter()<br>.filter()可以从数据集中选择元素。<br>例如，挑选出年份为2018的数据。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = sc.parallelize([</span><br><span class="line">  [<span class="number">0</span>,<span class="number">2018</span>,<span class="string">'a'</span>], [<span class="number">4</span>,<span class="number">2018</span>,<span class="string">'b'</span>], [<span class="number">3</span>,<span class="number">2017</span>,<span class="string">'c'</span>], [<span class="number">1</span>,<span class="number">2017</span>,<span class="string">'d'</span>], [<span class="number">2</span>,<span class="number">2018</span>,<span class="string">'e'</span>]</span><br><span class="line">])</span><br><span class="line">data_fil = data.filter(<span class="keyword">lambda</span> x: x[<span class="number">1</span>] == <span class="number">2018</span>).collect()</span><br><span class="line">print(data_fil)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[0, 2018, &apos;a&apos;], [4, 2018, &apos;b&apos;], [2, 2018, &apos;e&apos;]]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>.flatMap()<br>.flatMap()与.map()类似，.map()返回一个列表，.flatMap()返回一个扁平的结果。<br>.flatMap()作用于文件读取的数据。<br>.flatMap()将每一行作为列表。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = sc.textFile(<span class="string">'test.txt'</span>,<span class="number">1</span>)</span><br><span class="line">print(data.take(<span class="number">6</span>))</span><br><span class="line">data_fM = data.flatMap(<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">print(data_fM.take(<span class="number">6</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&quot;&apos;num&apos;,&apos;name&apos;,&apos;age&apos;,&apos;year&apos;&quot;, &quot;0,&apos;a&apos;,18,2018&quot;, &quot;1,&apos;f&apos;,20,2017&quot;, &quot;2,&apos;b&apos;,21,2018&quot;, &quot;3,&apos;c&apos;,20,2018&quot;, &quot;4,&apos;e&apos;,18,2017&quot;]</span><br><span class="line">[&quot;&apos;&quot;, &apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>.distinct()<br>.distinct()返回制定列的不同值的列表。<br>例如，返回年份的列表。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = sc.textFile(<span class="string">'test.txt'</span>,<span class="number">1</span>)</span><br><span class="line">data_spl = data.map(<span class="keyword">lambda</span> x: x.split(<span class="string">','</span>))</span><br><span class="line">data_dis = data_spl.map(<span class="keyword">lambda</span> x: x[<span class="number">3</span>]).distinct()</span><br><span class="line">print(data_dis.collect())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;2017&apos;, &apos;2018&apos;, &apos;year&apos;, &apos;2016&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>注意：这个方法的开销很高。</p>
+<ul>
+<li>.sample()<br>.sample(withReplacement,fraction,seed)返回数据集的随机样本。<br>withReplacement制定采样是否应该替换，fraction定义返回数据的分数，seed为伪随机数产生器的种子。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data = sc.parallelize([</span><br><span class="line">  [<span class="number">0</span>,<span class="number">2018</span>,<span class="string">'a'</span>], [<span class="number">4</span>,<span class="number">2018</span>,<span class="string">'b'</span>], [<span class="number">3</span>,<span class="number">2017</span>,<span class="string">'c'</span>], [<span class="number">1</span>,<span class="number">2017</span>,<span class="string">'d'</span>], [<span class="number">2</span>,<span class="number">2018</span>,<span class="string">'e'</span>]</span><br><span class="line">])</span><br><span class="line">data_sam = data.sample(withReplacement=<span class="keyword">False</span>,fraction=<span class="number">0.6</span>,seed=<span class="number">12</span>)</span><br><span class="line">print(data_sam.collect())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[3, 2017, &apos;c&apos;], [1, 2017, &apos;d&apos;], [2, 2018, &apos;e&apos;]]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>.leftOuterJoin()<br>.leftOuterJoin()将两个数据连接在一起，相同的值相互联系。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data1 = sc.parallelize([(<span class="number">0</span>,<span class="string">'a'</span>),(<span class="number">2</span>,<span class="string">'b'</span>),(<span class="number">3</span>,<span class="string">'c'</span>),(<span class="number">4</span>,<span class="string">'e'</span>)])</span><br><span class="line">data2 = sc.parallelize([(<span class="number">0</span>,<span class="string">'c'</span>),(<span class="number">3</span>,<span class="string">'d'</span>),(<span class="number">2</span>,<span class="string">'b'</span>)])</span><br><span class="line">data_fOJ = data1.leftOuterJoin(data2)</span><br><span class="line">print(data_fOJ.collect())</span><br><span class="line">data_join = data1.join(data2)</span><br><span class="line">print(data_join.collect())</span><br><span class="line">data_inte = data1.intersection(data2)</span><br><span class="line">print(data_inte.collect())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[(0, (&apos;a&apos;, &apos;c&apos;)), (2, (&apos;b&apos;, &apos;b&apos;)), (3, (&apos;c&apos;, &apos;d&apos;)), (4, (&apos;e&apos;, None))]</span><br><span class="line">[(0, (&apos;a&apos;, &apos;c&apos;)), (2, (&apos;b&apos;, &apos;b&apos;)), (3, (&apos;c&apos;, &apos;d&apos;))]</span><br><span class="line">[(2, &apos;b&apos;)]</span><br></pre></td></tr></table></figure></p>
+<p>这里还使用了.join()和.intersection()。<br>.join()与.leftOuterJoin()类似，但是.join()只连接两个数据中都有相同值的部分。<br>.intersection()连接的是两个数据中完全一样的值。<br>注意： .leftOuterJoin()这个方法的开销很高。</p>
+<p><strong>3.操作</strong></p>
+<ul>
+<li>.take()<br>.take(num) 返回num个RDD的元素。<br>而.collect() 返回所有RDD的元素。<br>.takeSample(withReplacement,num,seed)可以返回随机的元素。withReplacement制定采样是否应该替换，num返回元素的个数，seed为伪随机数产生器的种子。</li>
+<li>.count()<br>.count()统计RDD里元素数量。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data1 = sc.parallelize([(<span class="number">0</span>,<span class="string">'a'</span>),(<span class="number">2</span>,<span class="string">'b'</span>),(<span class="number">3</span>,<span class="string">'c'</span>),(<span class="number">4</span>,<span class="string">'e'</span>)])</span><br><span class="line">print(data1.count())</span><br><span class="line">print(data1.countByKey().items())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4</span><br><span class="line">dict_items([(0, 1), (2, 1), (3, 1), (4, 1)])</span><br></pre></td></tr></table></figure></p>
+<p>.countByKey()可以获取不同键的统计。但是是相对于dict形式而言。上述代码用了tuple形式，所以第一位被当做了key。</p>
+<ul>
+<li>.saveAsTextFile()<br>.saveAsTextFile(filename)将RDD保存为文本。filename为保存路径。</li>
+<li>.foreach()<br>.foreach()将RDD每个元素对应一个定义好的函数。也是迭代的方式。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data1 = sc.parallelize([(<span class="number">0</span>,<span class="string">'a'</span>),(<span class="number">2</span>,<span class="string">'b'</span>),(<span class="number">3</span>,<span class="string">'c'</span>),(<span class="number">4</span>,<span class="string">'e'</span>)])</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    print(x)</span><br><span class="line">data1.foreach(f)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(2, &apos;b&apos;)</span><br><span class="line">(3, &apos;c&apos;)</span><br><span class="line">(4, &apos;e&apos;)</span><br><span class="line">(0, &apos;a&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>注意：输出顺序可能不同。</p>
+<ul>
+<li>.reduce()<br>.reduce()使用指定方式减少RDD的元素。<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3>源自书籍：《PySpark实战指南 利用Python和Spark构建数据密集型应用并规模化部署》<br><a href="http://spark.apache.org/docs/latest/api/python/pyspark.html" target="_blank" rel="noopener">pyspark 官方文档</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/27/PySpark笔记02/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          PySpark笔记02
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/21/spark环境搭建/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">spark环境搭建</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="PySpark笔记01" data-title="PySpark笔记01" data-url="http://yoursite.com/2018/04/22/PySpark笔记01/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"szping"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Jea
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

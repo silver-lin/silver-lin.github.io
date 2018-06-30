@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>sql笔记03 | jea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AS1.将表中某些记录创建为一张新表">
+<meta name="keywords" content="sql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql笔记03">
+<meta property="og:url" content="http://yoursite.com/2018/06/19/DB_sql_3/index.html">
+<meta property="og:site_name" content="jea">
+<meta property="og:description" content="AS1.将表中某些记录创建为一张新表">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-19T08:42:27.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql笔记03">
+<meta name="twitter:description" content="AS1.将表中某些记录创建为一张新表">
+  
+    <link rel="alternative" href="/atom.xml" title="jea" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/cat1.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Jea</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">该折腾就折腾</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/tags/pyspark/" style="font-size: 20px;">pyspark</a> <a href="/tags/pythonPro/" style="font-size: 15px;">pythonPro</a> <a href="/tags/sql/" style="font-size: 20px;">sql</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/数据挖掘算法/" style="font-size: 15px;">数据挖掘算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">路要一步一步走。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Jea</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="/img/cat1.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Jea</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">该折腾就折腾</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-DB_sql_3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/19/DB_sql_3/" class="article-date">
+  	<time datetime="2018-06-19T06:58:40.000Z" itemprop="datePublished">2018-06-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sql笔记03
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="AS"><a href="#AS" class="headerlink" title="AS"></a><strong>AS</strong></h3><p>1.将表中某些记录创建为一张新表<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE movie_test</span><br><span class="line">AS SELECT *</span><br><span class="line">FROM movie.douban_movie</span><br><span class="line">LIMIT 1000</span><br></pre></td></tr></table></figure></p>
+<p>从<strong>数据库movie</strong>中的<strong>douban_movie表</strong>中取出<strong>1000条记录</strong>，插入到新创建的<strong>movie_test表</strong>中。<br>2.给列（表）名命名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name_ AS &quot;电影名&quot; FROM movie_test  LIMIT 10</span><br></pre></td></tr></table></figure></p>
+<p><strong>movie_test表</strong>中的<strong>name_</strong>为电影名，用AS将其命名为“电影名”。<br>结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电影名</span><br><span class="line">新木乃伊 The Mummy</span><br><span class="line">漂洋过海来爱你</span><br><span class="line">爱情开始的地方之遇见</span><br><span class="line">摔跤吧！爸爸 Dangal</span><br><span class="line">李雷和韩梅梅</span><br><span class="line">忠爱无言</span><br><span class="line">哆啦A梦：大雄的南极冰冰凉大冒险 ドラえもん のび太の南極カチコチ大冒険</span><br><span class="line">碟仙之毕业照</span><br><span class="line">此情此刻</span><br><span class="line">麻辣学院</span><br></pre></td></tr></table></figure></p>
+<h3 id="ORDER-BY"><a href="#ORDER-BY" class="headerlink" title="ORDER BY"></a><strong>ORDER BY</strong></h3><p>1.降序 DESC<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT name_ AS &quot;电影名&quot;,score AS &quot;评分&quot; </span><br><span class="line">FROM movie_test </span><br><span class="line">WHERE score!=&quot;None&quot; </span><br><span class="line">ORDER BY score DESC </span><br><span class="line">LIMIT 10</span><br></pre></td></tr></table></figure></p>
+<p>从<strong>movie_test表</strong>中取出<strong>电影名</strong>和<strong>评分</strong>，去掉评分为<strong>None</strong>的（因为<strong>None</strong>排在<strong>数字</strong>前面），并根据评分高低<strong>降序</strong>排序，再取前10条记录。<br>结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电影名	评分</span><br><span class="line">摔跤吧！爸爸 Dangal	9.2</span><br><span class="line">摔跤吧！爸爸 Dangal	9.2</span><br><span class="line">疯狂动物城 Zootopia	9.2</span><br><span class="line">素媛 소원	9.1</span><br><span class="line">攀登梅鲁峰 Meru	9.1</span><br><span class="line">辩护人 변호인	9.1</span><br><span class="line">小森林 夏秋篇 リトル・フォレスト 夏・秋	8.9</span><br><span class="line">小森林 冬春篇 リトル・フォレスト 冬・春	8.9</span><br><span class="line">海蒂和爷爷 Heidi	8.9</span><br><span class="line">房间 Room	8.8</span><br></pre></td></tr></table></figure></p>
+<p>2.升序 ASC<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT name_ AS &quot;电影名&quot;,runtime AS &quot;播放时长&quot;</span><br><span class="line">FROM movie_test </span><br><span class="line">WHERE runtime!= &quot;&quot;</span><br><span class="line">ORDER BY runtime ASC</span><br><span class="line">LIMIT 10</span><br></pre></td></tr></table></figure></p>
+<p>从<strong>movie_test表</strong>中取出<strong>电影名</strong>和<strong>播放时长</strong>，去掉播放时长为<strong>“ “</strong>的，并根据播放时长时间<strong>升序</strong>排序，再取前10条记录。<br>结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电影名	播放时长</span><br><span class="line">漩涡鸣人成为火影的日子 ナルトが火影になった日	10</span><br><span class="line">小情书	100</span><br><span class="line">指甲刀人魔	100</span><br><span class="line">杀死萨拉查 Cartels	100</span><br><span class="line">20:16	100</span><br><span class="line">爱在深秋 愛在深秋	100</span><br><span class="line">谎言西西里	100</span><br><span class="line">山那边有匹马	100</span><br><span class="line">非常父子档	100</span><br><span class="line">自我救赎	100</span><br></pre></td></tr></table></figure></p>
+<p>3.多个列要进行排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT name_ AS &quot;电影名&quot;,runtime AS &quot;播放时长&quot;,score AS &quot;评分&quot;</span><br><span class="line">FROM movie_test </span><br><span class="line">WHERE runtime!= &quot;&quot;</span><br><span class="line">ORDER BY runtime ASC ,score DESC</span><br><span class="line">LIMIT 10</span><br></pre></td></tr></table></figure></p>
+<p>结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电影名	播放时长	评分</span><br><span class="line">漩涡鸣人成为火影的日子 ナルトが火影になった日	10	8.3</span><br><span class="line">布达佩斯大饭店 The Grand Budapest Hotel	100	8.7</span><br><span class="line">心房客 Asphalte	100	8.3</span><br><span class="line">普通女人 Una mujer fantástica	100	7.5</span><br><span class="line">战火中的芭蕾	100	6.5</span><br><span class="line">一个人的武林	100	6.2</span><br><span class="line">帕罗奥图 Palo Alto	100	6.1</span><br><span class="line">山那边有匹马	100	5.8</span><br><span class="line">小情书	100	5.7</span><br><span class="line">20:16	100	5.7</span><br></pre></td></tr></table></figure></p>
+<p>先<strong>升序</strong>排<strong>播放时长</strong>，再<strong>降序</strong>排<strong>评分</strong>。</p>
+<h3 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a><strong>GROUP BY</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT class,COUNT(class) FROM student GROUP BY class</span><br></pre></td></tr></table></figure>
+<p>进行分组统计。<br>原表为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id	class	name</span><br><span class="line">1	A	Ann</span><br><span class="line">2	B	Bob</span><br><span class="line">4	A	Dea</span><br><span class="line">5	B	Err</span><br></pre></td></tr></table></figure></p>
+<p>结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class	COUNT(class)</span><br><span class="line">A	2</span><br><span class="line">B	2</span><br></pre></td></tr></table></figure></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/25/PRO_create101/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          requests爬取微博评论
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/17/DB_sql_2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">sql笔记02</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="DB_sql_3" data-title="sql笔记03" data-url="http://yoursite.com/2018/06/19/DB_sql_3/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"szping"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Jea
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+1.在某个$\theta$和x的情况下，输出y为1的概率：
+
+$$p(y=1|x;\theta )=\frac{1}{1+e^{-\theta x}}=h_{\theta }(x)$$
+输出y为0的概率：
+
+$$p(y=0|x;\theta )=\frac{e^{-\theta x}}{1+e^{-\theta x}}=1-h_{\theta }(x)$$
+综合上面两个公式：
+
+![](\images\ML\LR\p_all.png)
+
+$$p(y|x;\theta )=h_{\theta }(x)^{y}(1-h_{\theta }(x))^{1-y}$$
+2.对上述概率公式取似然函数：
+
+$$L(\theta )=\prod_{i=1}^{m}p(y^{(i)}|x^{(i)};\theta )=\prod_{i=1}^{m}(h_{\theta }(x^{(i)}))^{y^{(i)}}(1-h_{\theta }(x^{(i)}))^{1-y^{(i)}}$$
+
+3.取对数似然函数：
+
+$$l(\theta )=logL(\theta )=\sum_{i=1}^{m}\left [ y^{(i)}log(h_{\theta }(x^{(i)}))+(1-y^{(i)})log(1-h_{\theta }(x^{(i)})) \right ]$$
+
+n.结果：
+
+$$\theta _{j}=\theta _{j}-\alpha \frac{1}{m}\sum_{i=1}^{m}\left [ h_{\theta }(x^{(i)})-y^{(i)} \right ]x$$
+
+6.
+\frac{\partial }{\partial \theta _{j}}J(\theta )
+\\=-\frac{1}{m}\sum_{i=1}^{m}\left [ y^{(i))}\frac{1}{h_{\theta }(x^{(i)})}-(1-y^{(i)})\frac{1}{1-h_{\theta }(x^{(i)})} \right ]\frac{\partial }{\partial \theta _{j}}h_{\theta }(x^{(i)})
+\\=-\frac{1}{m}\sum_{i=1}^{m}\left [ y^{(i))}\frac{1}{h_{\theta }(x^{(i)})}-(1-y^{(i)})\frac{1}{1-h_{\theta }(x^{(i)})} \right ]\left [ h_{\theta }(x^{(i)})(1-h_{\theta }(x^{(i)}))(x^{(i)}) \right ]
+\\=-\frac{1}{m}\sum_{i=1}^{m}\left [ y^{(i))}(1-h_{\theta }(x^{(i)}))-(1-y^{(i))})h_{\theta }(x^{(i)}) \right ](x^{(i)})
+\\=-\frac{1}{m}\sum_{i=1}^{m}\left [ y^{(i))}-h_{\theta }(x^{(i)}) \right ](x^{(i)})
+
+7.
+\frac{\partial }{\partial \theta _{j}}h_{\theta }(x^{(i)})
+\\=\frac{1}{1+e^{-\theta x}}\frac{e^{-\theta x}}{1+e^{-\theta x}}(x)
+\\=h_{\theta }(x^{(i)})(1-h_{\theta }(x^{(i)}))(x^{(i)})
+
+8.
+\theta _{j}=\theta _{j}+\alpha \frac{1}{m}\sum_{i=1}^{m}\left [ y^{(i))}-h_{\theta }(x^{(i)}) \right ]x=\theta _{j}-\alpha \frac{1}{m}\sum_{i=1}^{m}\left [h_{\theta }(x^{(i)}) - y^{(i))} \right ]x

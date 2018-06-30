@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>LogisticRegression笔记 | jea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="LogisticRegression逻辑回归，广义线形回归分析模型，较常见用于二分类。">
+<meta name="keywords" content="数据挖掘算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LogisticRegression笔记">
+<meta property="og:url" content="http://yoursite.com/2018/06/04/DM_LR/index.html">
+<meta property="og:site_name" content="jea">
+<meta property="og:description" content="LogisticRegression逻辑回归，广义线形回归分析模型，较常见用于二分类。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/Figure_0.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/p_y1.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/p_y0.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/p_all.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/L_siran.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/l_siran_log.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/J_theta.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/gradientdescent_j.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/J_theta_all_new.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/h_theta_x_new.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/result_new.png">
+<meta property="og:image" content="http://yoursite.com/images/ML/LR/Figure_lr_plot.png">
+<meta property="og:updated_time" content="2018-06-30T09:11:11.086Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LogisticRegression笔记">
+<meta name="twitter:description" content="LogisticRegression逻辑回归，广义线形回归分析模型，较常见用于二分类。">
+<meta name="twitter:image" content="http://yoursite.com/images/ML/LR/Figure_0.png">
+  
+    <link rel="alternative" href="/atom.xml" title="jea" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/cat1.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Jea</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">该折腾就折腾</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/OpenCV/" style="font-size: 20px;">OpenCV</a> <a href="/tags/pyspark/" style="font-size: 20px;">pyspark</a> <a href="/tags/pythonPro/" style="font-size: 15px;">pythonPro</a> <a href="/tags/sql/" style="font-size: 20px;">sql</a> <a href="/tags/tensorflow/" style="font-size: 10px;">tensorflow</a> <a href="/tags/数据挖掘算法/" style="font-size: 15px;">数据挖掘算法</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">路要一步一步走。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Jea</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="/img/cat1.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Jea</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">该折腾就折腾</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-DM_LR" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/04/DM_LR/" class="article-date">
+  	<time datetime="2018-06-04T02:54:20.000Z" itemprop="datePublished">2018-06-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LogisticRegression笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据挖掘算法/">数据挖掘算法</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="LogisticRegression"><a href="#LogisticRegression" class="headerlink" title="LogisticRegression"></a>LogisticRegression</h3><p>逻辑回归，广义线形回归分析模型，较常见用于二分类。<br><a id="more"></a></p>
+<h5 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h5><p>因为要用于分类，我们希望产生的输出值为{0,1}，最理想的函数是阶跃函数，但是阶跃函数并不是连续函数（不单调），不方便与计算分析。所以选择接近于阶跃函数的sigmoid函数，作为拟合数据的模型。<br>阶跃函数（蓝线）和sigmoid函数（红线）如下：<br><img src="\images\ML\LR\Figure_0.png" alt="lr"><br>其中的sigmoid公式为</p>
+<p>$$y=g(z)=\frac{1}{1+e^{-z}}$$<br>公式中的z为输入变量与权重的乘积（$\theta$ 为权重，x为输入变量）：<br>$$z=\theta x$$</p>
+<h5 id="logistic-regression数学推导"><a href="#logistic-regression数学推导" class="headerlink" title="logistic regression数学推导"></a>logistic regression数学推导</h5><p>1.在某个$\theta$和x的情况下，输出y为1的概率：</p>
+<p><img src="\images\ML\LR\p_y1.png" alt=""></p>
+<p>输出y为0的概率：</p>
+<p><img src="\images\ML\LR\p_y0.png" alt=""></p>
+<p>综合上面两个公式：</p>
+<p><img src="\images\ML\LR\p_all.png" alt=""></p>
+<p>2.对上述概率公式取似然函数：</p>
+<p><img src="\images\ML\LR\L_siran.png" alt=""></p>
+<p>3.取对数似然函数：</p>
+<p><img src="\images\ML\LR\l_siran_log.png" alt=""></p>
+<p>4.最大似然估计是为了找到参数估计值，使样本值发生的概率最大。这里令</p>
+<p><img src="\images\ML\LR\J_theta.png" alt=""></p>
+<p>最大化$l(\theta )$,只需最小化$J(\theta )$<br>5.梯度下降:</p>
+<p><img src="\images\ML\LR\gradientdescent_j.png" alt=""></p>
+<p>6.推导$\frac{\partial }{\partial \theta _{j}}J(\theta )$:</p>
+<p><img src="\images\ML\LR\J_theta_all_new.png" alt=""></p>
+<p>7.其中，</p>
+<p><img src="\images\ML\LR\h_theta_x_new.png" alt=""></p>
+<p>8.综上所述：</p>
+<p><img src="\images\ML\LR\result_new.png" alt=""></p>
+<h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadData</span><span class="params">(filename)</span>:</span></span><br><span class="line">    dataSet = list()</span><br><span class="line">    labelSet = list()</span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'r'</span>)<span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">            data = line.strip().split()</span><br><span class="line">            dataSet.append([<span class="number">1.0</span>,float(data[<span class="number">0</span>]),float(data[<span class="number">1</span>])])</span><br><span class="line">            labelSet.append(int(data[<span class="number">2</span>]))</span><br><span class="line">    <span class="keyword">return</span> dataSet, labelSet</span><br><span class="line"><span class="comment">#sigmoid函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+np.exp(-x))</span><br><span class="line"><span class="comment">#梯度下降</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gradientDescent</span><span class="params">(dataS, labelS, maxIter=<span class="number">500</span>)</span>:</span></span><br><span class="line">    dataSetMat = np.mat(dataS)</span><br><span class="line">    labelSetMat = np.mat(labelS).transpose()</span><br><span class="line">    m,n = np.shape(dataSetMat) <span class="comment">#维度 (100,3)</span></span><br><span class="line">    alpha = <span class="number">0.001</span></span><br><span class="line">    weights = np.ones((n,<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(maxIter):</span><br><span class="line">        h = sigmoid(dataSetMat*weights)</span><br><span class="line">        error = h - labelSetMat</span><br><span class="line">        weights = weights - alpha*dataSetMat.transpose()*error</span><br><span class="line">    <span class="keyword">return</span> weights</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line">    filename = str(Path(__file__).parent.parent.parent/<span class="string">"machinelearninginaction/Ch05/testSet.txt"</span>)</span><br><span class="line">    dS, lS = loadData(filename)</span><br><span class="line">    w = gradientDescent(dS,lS)</span><br><span class="line">    print(w)</span><br></pre></td></tr></table></figure>
+<p>(代码源自书籍MachineLearninginAction，作了一些改动，按照书中代码梯度上升不能得到预期的结果，所以使用了梯度下降）<br>结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[ 4.12414349]</span><br><span class="line"> [ 0.48007329]</span><br><span class="line"> [-0.6168482 ]]</span><br></pre></td></tr></table></figure></p>
+<p>由于数据是二维的，可在坐标轴上表示，通过weights的值来划分分界线。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#画图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plotLR</span><span class="params">(dataS, labelS, weights)</span>:</span></span><br><span class="line">    weights = weights.tolist()</span><br><span class="line">    <span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">    plt.figure(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(int(len(dataS))):</span><br><span class="line">        <span class="keyword">if</span> labelS[i]==<span class="number">1</span>:</span><br><span class="line">            plt.plot(dataS[i][<span class="number">1</span>],dataS[i][<span class="number">2</span>],<span class="string">'ob'</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            plt.plot(dataS[i][<span class="number">1</span>],dataS[i][<span class="number">2</span>],<span class="string">'or'</span>)</span><br><span class="line">    x = np.arange(<span class="number">-3.0</span>,<span class="number">3.0</span>,<span class="number">0.1</span>)</span><br><span class="line">    y = (-weights[<span class="number">0</span>][<span class="number">0</span>]-weights[<span class="number">1</span>][<span class="number">0</span>]*x)/weights[<span class="number">2</span>][<span class="number">0</span>]</span><br><span class="line">    plt.plot(x,y)</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure></p>
+<p>结果如下：<br><img src="/images/ML/LR/Figure_lr_plot.png" alt=""></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>书籍：《MachineLearninginAction 机器学习实战》</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/11/DB_sql_1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          sql笔记01
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/25/DM_kMeans/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">k-Means笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="DM_LR" data-title="LogisticRegression笔记" data-url="http://yoursite.com/2018/06/04/DM_LR/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"szping"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 Jea
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
